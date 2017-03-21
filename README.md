@@ -42,6 +42,8 @@ class Game
     def play_game
         number = generate_number
         game_counter += 1 
+        attempts = 0
+        game_number = 0
         loop do
             Console_Screen.cls
             print "\nEnter your guess and press the enter key: "
@@ -50,39 +52,48 @@ class Game
             reply.chop!
             reply = reply.to_i
  
-            if reply < 1 or reply > 100 then
+            if reply < 1 or reply > 1000 then
                 redo # redo the ciurrent iteration of the loop
+                attempts += 1
+                game_number +=1
             end
+            if attempts > 10 then
+               print "Excceded the no. of attempts(10)...GAME_OVER"
+               Console_Screen.cls
+               break
             guess1 = 0
             guess2 = 0
             guess3 = 0
             if reply == number then
                 guess1 += 1 
+                print "game_number"
                 Console_Screen.cls
                 print "You have guessed the number! Press Enter to continue."
                 Console_Screen.pause
                 break
             elsif reply < number then
                 guess2 += 1 
+                print "game_number"
                 Console_Screen.cls
-                print "Your guess is too low! Press enter to continue."
+                print "Your guess is too low! Please enter number from 1 to 1000  Press enter to continue."
                 Console_Screen.pause
             elsif reply > number then
                 guess3 += 1 
+                print "game_number"
                 Console_Screen.cls
-                print "Your guess is too high! Press enter to continue."
+                print "Your guess is too high! Please enter number from 1 to 1000 Press enter to continue."
                 Console_Screen.pause
             end
  
         end
-             
+        avg_guess = (guess1 +guess2 + guess3) / 3     
     end
-    avg_guess = (guess1 +guess2 + guess3) / 3
+    
     def display_credits
         Console_Screen.cls
         puts "\t\t\Thanks you for playing the number game!!"
-        puts "No. of games played" + game_counter
-        puts "Average no. of games played" + avg_guess
+        puts "\t\tNo. of games played" +   game_counter
+        puts "\t\tAverage no. of games played" +   avg_guess
     end
  
     $noRight = 0
